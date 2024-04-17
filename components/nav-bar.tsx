@@ -1,7 +1,7 @@
 import Logo from "./logo";
 import { Button } from "./ui/button";
 
-export default function Navbar() {
+export default function Navbar(): React.ReactNode {
   return (
     <nav className="shadow py-6">
       <div className="container flex justify-between items-center">
