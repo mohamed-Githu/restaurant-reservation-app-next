@@ -10,6 +10,12 @@ export interface RestaurantCardType {
   price_category: PRICE_CATEGORY;
 }
 
+export interface RestaurantDetailsType {
+  name: string;
+  images: string[];
+  description: string;
+}
+
 export interface PriceCategoryType {
   price_category: PRICE_CATEGORY;
 }
