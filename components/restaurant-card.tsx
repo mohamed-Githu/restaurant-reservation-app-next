@@ -1,27 +1,39 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import RestaurantType from "@/app/types/restaurant-type";
+import { RestaurantCardType } from "@/app/types/restaurant-types";
+import PriceIcon from "./price-icon";
+import Link from "next/link";
 
 export default function RestaurantCard({
-  title,
-  rating,
-  imageUrl,
-}: RestaurantType): React.ReactNode {
+  name,
+  cuisine,
+  main_image,
+  location,
+  price_category,
+  slug,
+}: RestaurantCardType): React.ReactNode {
+  console.log(cuisine, location);
   return (
-    <Card>
-      <Image
-        src={imageUrl}
-        alt={title}
-        className="object-cover"
-        width={234}
-        height={132}
-      />
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p>{rating}</p>
-      </CardContent>
+    <Card className="overflow-hidden">
+      <Link href={`/restaurant/${slug}`}>
+        <div className="h-36">
+          <Image
+            src={main_image}
+            alt={name}
+            className="object-cover h-full w-full"
+            width={234}
+            height={132}
+          />
+        </div>
+        <CardHeader>
+          <CardTitle>{name}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex space-x-2 items-center capitalize">
+          <p>{cuisine.name}</p>
+          <PriceIcon price_category={price_category} />
+          <p>{location.name}</p>
+        </CardContent>
+      </Link>
     </Card>
   );
 }

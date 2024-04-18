@@ -1,14 +1,14 @@
-import RestaurantType from "@/app/types/restaurant-type";
+import { RestaurantCardType } from "@/app/types/restaurant-types";
 import RestaurantCard from "./restaurant-card";
 
 export default function CardsGrid({
-  cards,
+  restaurants,
 }: {
-  cards: Array<RestaurantType>;
+  restaurants: Array<RestaurantCardType>;
 }): React.ReactNode {
   return (
-    <div className="gap-6 grid grid-cols-5">
-      {cards.map((card) => (
+    <div className="gap-6 grid grid-cols-4">
+      {restaurants.map((card) => (
         <RestaurantCard {...card} key={card.id} />
       ))}
     </div>

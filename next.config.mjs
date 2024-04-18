@@ -4,8 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "t3.ftcdn.net",
-        pathname: "/**",
+        hostname: "resizer.otstatic.com",
       },
     ],
   },

@@ -1,46 +1,27 @@
 import CardsGrid from "@/components/cards-grid";
-import RestaurantCard from "@/components/restaurant-card";
+import { PrismaClient } from "@prisma/client";
+import { RestaurantCardType } from "./types/restaurant-types";
 
-const temp =
-  "https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg";
+const prisma = new PrismaClient();
 
-const cards = [
-  {
-    id: 1,
-    title: "temp restaurant",
-    rating: 3.5,
-    imageUrl: temp,
-  },
-  {
-    id: 2,
-    title: "temp restaurant",
-    rating: 3.5,
-    imageUrl: temp,
-  },
-  {
-    id: 3,
-    title: "temp restaurant",
-    rating: 3.5,
-    imageUrl: temp,
-  },
-  {
-    id: 4,
-    title: "temp restaurant",
-    rating: 3.5,
-    imageUrl: temp,
-  },
-  {
-    id: 5,
-    title: "temp restaurant",
-    rating: 3.5,
-    imageUrl: temp,
-  },
-];
+export default async function Home() {
+  const restaurants = await (async function (): Promise<RestaurantCardType[]> {
+    return await prisma.restaurant.findMany({ select: {
+      id: true,
+      slug: true,
+      name: true,
+      main_image: true,
+      cuisine: true,
+      location: true,
+      price_category: true,
+    } });
+  })()
 
-export default function Home() {
+  console.log(restaurants)
+
   return (
     <>
-      <CardsGrid cards={cards} />
+      <CardsGrid restaurants={restaurants} />
     </>
   );
 }

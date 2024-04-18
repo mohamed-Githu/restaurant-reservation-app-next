@@ -15,7 +15,7 @@ enum PRICE_CATEGORY {
 
 model Restaurant {
   id             Int            @id @default(autoincrement())
-  title          String         @unique
+  name          String         @unique
   slug           String         @unique
   price_category PRICE_CATEGORY
   main_image     String
@@ -34,13 +34,13 @@ model Restaurant {
 
 model Item {
   id            Int        @id @default(autoincrement())
-  title         String
+  name         String
   price         Float
   description   String
   created_at    DateTime   @default(now())
   udpated_at    DateTime   @updatedAt
-  restuarant_id Int
-  restaurant    Restaurant @relation(fields: [restuarant_id], references: [id])
+  restaurant_id Int
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
 }
 
 model Location {
