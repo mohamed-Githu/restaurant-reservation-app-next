@@ -19,3 +19,10 @@ export interface RestaurantDetailsType {
 export interface PriceCategoryType {
   price_category: PRICE_CATEGORY;
 }
+
+export interface ItemType {
+  id: number;
+  price: number;
+  description: string;
+  name: string;
+}

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import {
+  ItemType,
   RestaurantCardType,
   RestaurantDetailsType,
 } from "../types/restaurant-types";
@@ -9,7 +10,7 @@ const prisma = new PrismaClient();
 export const getRestaurantBySlug = async (
   slug: string
 ): Promise<RestaurantDetailsType> => {
-  return prisma.restaurant.findUnique({
+  return await prisma.restaurant.findUnique({
     where: {
       slug,
     },
@@ -19,6 +20,21 @@ export const getRestaurantBySlug = async (
       description: true,
     },
   });
+};
+
+export const getRestaurantItems = async (slug: string): Promise<ItemType[]> => {
+  const restaurant = await prisma.restaurant.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      items: true,
+    },
+  });
+
+  const items = await restaurant?.items;
+
+  return items;
 };
 
 export const getRestaurants = async (): Promise<RestaurantCardType[]> => {

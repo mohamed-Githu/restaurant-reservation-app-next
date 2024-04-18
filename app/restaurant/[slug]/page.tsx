@@ -35,7 +35,7 @@ export default async function RestaurantDetailsPage({
           {images.length} Photos
         </h3>
         <Separator />
-        <div className="grid grid-cols-3 p-4 gap-3">
+        <div className="grid grid-cols-3 p-4 gap-1">
           {images.map((image, i) => (
             <Image
               width={400}

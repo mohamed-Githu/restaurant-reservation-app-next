@@ -22,7 +22,7 @@ export default function RestaurantMenuBar({
             className={navigationMenuTriggerStyle()}
             onClick={() => router.push(`/restaurant/${slug}`)}
           >
-            <div className="cursor-pointer">Overview</div>
+            Overview
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
@@ -30,7 +30,7 @@ export default function RestaurantMenuBar({
             className={navigationMenuTriggerStyle()}
             onClick={() => router.push(`/restaurant/${slug}/menu`)}
           >
-            <div className="cursor-pointer">Menu</div>
+            Menu
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
