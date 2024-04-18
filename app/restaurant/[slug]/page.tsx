@@ -31,7 +31,7 @@ export default async function RestaurantDetailsPage({
         <Separator />
         <h1 className="m-5 font-extrabold text-5xl">{name}</h1>
         <Separator />
-        <p className="p-4 font-medium leading-5">{description}</p>
+        <p className="p-4 leading-5">{description}</p>
         <h3 className="text-3xl font-extrabold mt-8 mb-2 mx-4">
           {images.length} Photos
         </h3>
