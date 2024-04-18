@@ -12,7 +12,6 @@ export default function RestaurantCard({
   price_category,
   slug,
 }: RestaurantCardType): React.ReactNode {
-  console.log(cuisine, location);
   return (
     <Card className="overflow-hidden">
       <Link href={`/restaurant/${slug}`}>

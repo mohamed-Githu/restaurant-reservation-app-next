@@ -3,12 +3,11 @@ import RestaurantMenuBar from "./restaurant-menu-bar";
 import { getRestaurantBySlug } from "@/app/utils/restaurants";
 import { RestaurantDetailsType } from "@/app/types/restaurant-types";
 import Image from "next/image";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
-export async function generateMetadata(
-  { params }: RestaurantDetailsPageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: RestaurantDetailsPageProps): Promise<Metadata> {
   const { slug } = params;
   const { name, description } = await getRestaurantBySlug(slug);
 
