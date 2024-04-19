@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 export default function Navbar(): React.ReactNode {
   return (
-    <nav className="shadow py-6">
+    <nav className="shadow py-6 z-50">
       <div className="container flex justify-between items-center">
         <Logo />
         <div className="space-x-4">

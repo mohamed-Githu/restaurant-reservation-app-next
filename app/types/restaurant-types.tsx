@@ -5,8 +5,12 @@ export interface RestaurantCardType {
   name: string;
   slug: string;
   main_image: string;
-  cuisine: string;
-  location: string;
+  cuisine: {
+    name: string;
+  };
+  location: {
+    name: string;
+  };
   price_category: PRICE_CATEGORY;
 }
 

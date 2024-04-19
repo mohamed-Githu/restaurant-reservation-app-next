@@ -25,7 +25,7 @@ export default async function RestaurantDetailsPage({
 
   return (
     <div className="grid grid-cols-3 gap-8 relative mt-10 *:shadow *:rounded">
-      <div className="col-span-2 ">
+      <div className="col-span-2 rounded bg-white">
         <RestaurantMenuBar slug={slug} />
         <Separator />
         <h1 className="m-5 font-extrabold text-5xl">{name}</h1>
