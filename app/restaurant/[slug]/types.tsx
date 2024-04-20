@@ -1,9 +1,15 @@
-interface RestaurantDetailsPageProps {
+import { RestaurantDescriptionReview } from "@/app/types/restaurant-types";
+
+export interface RestaurantDetailsPageProps {
   params: {
     slug: string;
   };
 }
 
-interface RestaurantMenuBarProps {
+export interface RestaurantMenuBarProps {
   slug: string;
+}
+
+export interface ReviewListProps {
+  reviews: RestaurantDescriptionReview[];
 }

@@ -12,7 +12,7 @@ export default function SearchBar() {
     <div className="w-full bg-gradient-to-t from-orange-600 via-yellow-400 to-transparent flex items-center h-64 justify-center">
       <form
         action={(formData: FormData) =>
-          router.push(`/search?query=${formData.get("search")}`)
+          router.push(`/search?location=${formData.get("search")}`)
         }
         className="flex space-x-4 items-center -mt-10-"
       >

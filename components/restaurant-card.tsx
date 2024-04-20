@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { RestaurantCardType } from "@/app/types/restaurant-types";
 import PriceIcon from "./price-icon";
 import Link from "next/link";
+import RestaurantRating from "./restaurant-rating";
+import { calculateRatingAvg } from "@/app/utils/restaurants";
 
 export default function RestaurantCard({
   name,
@@ -11,6 +13,7 @@ export default function RestaurantCard({
   location,
   price_category,
   slug,
+  reviews,
 }: RestaurantCardType): React.ReactNode {
   return (
     <Card className="overflow-hidden">
@@ -26,6 +29,7 @@ export default function RestaurantCard({
         </div>
         <CardHeader>
           <CardTitle>{name}</CardTitle>
+          <RestaurantRating reviews={reviews} />
         </CardHeader>
         <CardContent className="flex space-x-2 items-center capitalize">
           <p>{cuisine.name}</p>

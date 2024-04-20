@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Review } from "@prisma/client";
 import {
   FilterParamsType,
   ItemType,
@@ -19,6 +19,17 @@ export const getRestaurantBySlug = async (
       name: true,
       images: true,
       description: true,
+      reviews: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+            }
+          }
+        }
+      }
     },
   });
 };
@@ -46,6 +57,7 @@ const restaurantSelectObject = {
   cuisine: true,
   location: true,
   price_category: true,
+  reviews: true,
 };
 
 export const getRestaurants = async (): Promise<RestaurantCardType[]> => {
@@ -70,7 +82,7 @@ export const filterRestaurants = async (
       };
     } else {
       where[queryParam] = {
-        name: { equals: queryString.toLocaleLowerCase() },
+        name: { contains: queryString.toLocaleLowerCase() },
       };
     }
   }
@@ -80,3 +92,8 @@ export const filterRestaurants = async (
     where,
   });
 };
+
+export const calculateRatingAvg = (reviews: Review[]) => {
+  const ratingsSum = reviews.reduce((acc, review) => acc + review.rating, 0);
+  return parseFloat((ratingsSum / reviews.length).toFixed(1));
+}
