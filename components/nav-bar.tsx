@@ -1,4 +1,6 @@
 import Logo from "./logo";
+import RegisterModal from "./register-modal";
+import SignInModal from "./sign-in-modal";
 import { Button } from "./ui/button";
 
 export default function Navbar(): React.ReactNode {
@@ -7,8 +9,8 @@ export default function Navbar(): React.ReactNode {
       <div className="container flex justify-between items-center">
         <Logo />
         <div className="space-x-4">
-          <Button>Sign In</Button>
-          <Button variant="secondary">Register</Button>
+          <SignInModal />
+          <RegisterModal />
         </div>
       </div>
     </nav>
