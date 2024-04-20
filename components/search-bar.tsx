@@ -14,7 +14,7 @@ export default function SearchBar() {
         action={(formData: FormData) =>
           router.push(`/search?query=${formData.get("search")}`)
         }
-        className="flex space-x-4 items-center -mt-14-"
+        className="flex space-x-4 items-center -mt-10-"
       >
         <Input
           name="search"

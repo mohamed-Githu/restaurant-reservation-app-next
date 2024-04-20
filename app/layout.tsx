@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar />
         <SearchBar />
-        <main className="container -mt-20">{children}</main>
+        <main className="container -mt-10">{children}</main>
       </body>
     </html>
   );

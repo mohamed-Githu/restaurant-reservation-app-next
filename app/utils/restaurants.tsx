@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import {
+  FilterParamsType,
   ItemType,
   RestaurantCardType,
   RestaurantDetailsType,
@@ -53,59 +54,29 @@ export const getRestaurants = async (): Promise<RestaurantCardType[]> => {
   });
 };
 
-export const getRestaurantsByLocation = async (
-  query: string
-): Pomise<RestaurantCardType[]> => {
-  if (!query) {
+export const filterRestaurants = async (
+  searchParams?: FilterParamsType
+): Promise<RestaurantCardType[]> => {
+  if (!searchParams) {
     return await getRestaurants();
+  }
+
+  const where: any = {};
+
+  for (const [queryParam, queryString] of Object.entries(searchParams)) {
+    if (queryParam === "price_category") {
+      where[queryParam] = {
+        equals: queryString,
+      };
+    } else {
+      where[queryParam] = {
+        name: { equals: queryString.toLocaleLowerCase() },
+      };
+    }
   }
 
   return await prisma.restaurant.findMany({
     select: restaurantSelectObject,
-    where: {
-      location: {
-        name: {
-          equals: query.toLocaleLowerCase(),
-        },
-      },
-    },
-  });
-};
-
-export const getRestaurantsByCuisine = async (
-  query: string
-): Pomise<RestaurantCardType[]> => {
-  if (!query) {
-    return await getRestaurants();
-  }
-
-  return await prisma.restaurant.findMany({
-    select: restaurantSelectObject,
-    where: {
-      cuisine: {
-        name: {
-          equals: query.toLocaleLowerCase(),
-        },
-      },
-    },
-  });
-};
-
-export const getRestaurantsByPrice = async (
-  query: string
-): Pomise<RestaurantCardType[]> => {
-  if (!query) {
-    return await getRestaurants();
-  }
-
-  return await prisma.restaurant.findMany({
-    select: restaurantSelectObject,
-    where: {
-      location: {
-        name: {
-          equals: query.toLocaleLowerCase(),
-        },
-      },
-    },
+    where,
   });
 };
