@@ -5,13 +5,14 @@ import {
   RestaurantCardType,
   RestaurantDetailsType,
 } from "../types/restaurant-types";
+import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
 
 export const getRestaurantBySlug = async (
   slug: string
 ): Promise<RestaurantDetailsType> => {
-  return await prisma.restaurant.findUnique({
+  const restaurant = await prisma.restaurant.findUnique({
     where: {
       slug,
     },
@@ -26,12 +27,18 @@ export const getRestaurantBySlug = async (
               id: true,
               first_name: true,
               last_name: true,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     },
   });
+
+  if (!restaurant) {
+    notFound();
+  }
+
+  return restaurant;
 };
 
 export const getRestaurantItems = async (slug: string): Promise<ItemType[]> => {
@@ -44,9 +51,11 @@ export const getRestaurantItems = async (slug: string): Promise<ItemType[]> => {
     },
   });
 
-  const items = await restaurant?.items;
+  if (!restaurant) {
+    notFound();
+  }
 
-  return items;
+  return restaurant.items;
 };
 
 const restaurantSelectObject = {
@@ -96,4 +105,4 @@ export const filterRestaurants = async (
 export const calculateRatingAvg = (reviews: Review[]) => {
   const ratingsSum = reviews.reduce((acc, review) => acc + review.rating, 0);
   return parseFloat((ratingsSum / reviews.length).toFixed(1));
-}
+};

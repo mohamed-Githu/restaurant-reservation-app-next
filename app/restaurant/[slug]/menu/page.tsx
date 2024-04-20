@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import RestaurantMenuBar from "../restaurant-menu-bar";
 import { Separator } from "@/components/ui/separator";
 import RestaurantMenu from "./restaurant-menu";
+import { RestaurantDetailsPageProps } from "../types";
 
 export async function generateMetadata({
   params,
@@ -26,7 +27,7 @@ export default async function RestaurantMenuPage({
   const items = await getRestaurantItems(slug);
 
   return (
-    <div className="shadow max-w-4xl mx-auto py-4 rounded my-10 bg-white">
+    <div className="shadow max-w-4xl mx-auto py-4 bg-white rounded-lg">
       <div className="px-2">
         <RestaurantMenuBar slug={slug} />
       </div>

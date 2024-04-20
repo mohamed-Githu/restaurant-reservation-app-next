@@ -1,3 +1,4 @@
+import { RestaurantDetailsPageProps } from "@/app/restaurant/[slug]/types";
 import { getRestaurantBySlug } from "@/app/utils/restaurants";
 import { Metadata } from "next";
 
