@@ -1,6 +1,5 @@
-import { Cuisine, PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { Cuisine} from "@prisma/client";
+import prisma from "../db";
 
 export const getCuisines = async (): Promise<Cuisine[]> => {
   return await prisma.cuisine.findMany();

@@ -1,4 +1,4 @@
-import { PrismaClient, Review } from "@prisma/client";
+import { Review } from "@prisma/client";
 import {
   FilterParamsType,
   ItemType,
@@ -6,8 +6,7 @@ import {
   RestaurantDetailsType,
 } from "../types/restaurant-types";
 import { notFound } from "next/navigation";
-
-const prisma = new PrismaClient();
+import prisma from "../db";
 
 export const getRestaurantBySlug = async (
   slug: string
