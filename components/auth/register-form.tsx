@@ -74,13 +74,14 @@ export default function RegisterForm() {
             disabled={pending}
             id="password"
             name="password"
+            type="password"
             placeholder="Enter your password"
             className="col-span-3"
           />
         </div>
       </div>
       <DialogFooter>
-        <Button disabled={pending} type="submit">
+        <Button form="register-form" disabled={pending} type="submit">
           {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{" "}
           Register
         </Button>

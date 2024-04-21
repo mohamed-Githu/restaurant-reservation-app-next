@@ -30,13 +30,14 @@ export default function SignInForm() {
             disabled={pending}
             id="password"
             name="password"
+            type="password"
             placeholder="Enter your password"
             className="col-span-3"
           />
         </div>
       </div>
       <DialogFooter>
-        <Button type="submit" disabled={pending}>
+        <Button form="signin-form" type="submit" disabled={pending}>
           {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Sign In
         </Button>
       </DialogFooter>

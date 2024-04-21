@@ -1,6 +1,6 @@
 "use client";
 
-import { createUser } from "@/actions/user-actions";
+import { createUserAction } from "@/actions/user-actions";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -11,12 +11,16 @@ import {
 } from "../ui/dialog";
 import RegisterForm from "./register-form";
 import { useToast } from "../ui/use-toast";
-import { SafeParseReturnType } from "zod";
-import { RegisterSchemaType } from "./types";
+import { ZodError } from "zod";
 import { registerSchema } from "./zod-schemas";
+import { formatZodError } from "./utils";
+import { ResponseType } from "./types";
+import { useRef } from "react";
 
 export default function RegisterModal() {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const handleRegister = async (formData: FormData) => {
     const newUser = {
@@ -27,23 +31,43 @@ export default function RegisterModal() {
       lastname: formData.get("lastname"),
       city: formData.get("city"),
     };
-    const result: SafeParseReturnType<RegisterSchemaType, RegisterSchemaType> =
-      registerSchema.safeParse(newUser);
 
-    if (result.success) {
-      await createUser(formData);
-    } else {
-      let errorMessage = "";
+    try {
+      const result = registerSchema.parse(newUser);
+      const res: ResponseType | undefined = await createUserAction(result);
 
-      for (const [key, value] of Object.entries(
-        result.error.flatten().fieldErrors
-      )) {
-        errorMessage += `\n${key.toUpperCase()}:\n${value.join("\n")}\n`;
+      // If user creation failed, show error message
+      if (!res?.success) {
+        toast({
+          variant: "destructive",
+          title: "Sign In Failed",
+          description: res?.error,
+        });
+        return;
+      }
+
+      // If user creation is successful, show success message
+      triggerRef.current?.click();
+      formRef.current?.reset();
+      toast({
+        variant: "success",
+        title: "Your Account is Created!",
+        description: "You have successfully registered",
+      });
+    } catch (error: ZodError | unknown) {
+      if (error instanceof ZodError) {
+        const errorMessage = formatZodError(error);
+        toast({
+          variant: "destructive",
+          title: "Sign In Failed",
+          description: errorMessage,
+        });
+        return;
       }
       toast({
         variant: "destructive",
         title: "Sign In Failed",
-        description: errorMessage,
+        description: "An unknown error occurred",
       });
     }
   };
@@ -51,13 +75,15 @@ export default function RegisterModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Register</Button>
+        <Button variant="secondary" ref={triggerRef}>
+          Register
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>REGISTER</DialogTitle>
         </DialogHeader>
-        <form action={handleRegister}>
+        <form id="register-form" action={handleRegister} ref={formRef}>
           <RegisterForm />
         </form>
       </DialogContent>

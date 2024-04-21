@@ -11,3 +11,9 @@ export interface RegisterSchemaType {
   city: string;
   phone: string;
 }
+export interface ResponseType {
+  status: number;
+  success: boolean;
+  error?: string;
+  data?: unknown;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "@/actions/user-actions";
+import { signInAction } from "@/actions/user-actions";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -14,9 +14,12 @@ import { loginSchema } from "./zod-schemas";
 import { SafeParseReturnType } from "zod";
 import { LoginSchemaType } from "./types";
 import { useToast } from "../ui/use-toast";
+import { useRef } from "react";
 
 export default function SignInModal() {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const handleSignIn = async (formData: FormData) => {
     const existingUser = {
@@ -27,7 +30,22 @@ export default function SignInModal() {
       loginSchema.safeParse(existingUser);
 
     if (result.success) {
-      await signIn(formData);
+      const res = await signInAction(result.data);
+      triggerRef.current?.click();
+      formRef.current?.reset();
+      if (res?.success) {
+        toast({
+          variant: "success",
+          title: "Sign In Successful",
+          description: "You have successfully signed in",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Sign In Failed",
+          description: res?.error,
+        });
+      }
     } else {
       let errorMessage = "";
 
@@ -43,17 +61,17 @@ export default function SignInModal() {
       });
     }
   };
-  
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Sign In</Button>
+        <Button ref={triggerRef}>Sign In</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>SIGN IN</DialogTitle>
         </DialogHeader>
-        <form action={handleSignIn}>
+        <form id="signin-form" action={handleSignIn} ref={formRef}>
           <SignInForm />
         </form>
       </DialogContent>
