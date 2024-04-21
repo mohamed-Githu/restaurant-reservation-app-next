@@ -1,16 +1,17 @@
 import Logo from "./logo";
-import RegisterModal from "./auth/register-modal";
-import SignInModal from "./auth/sign-in-modal";
+import { cookies } from "next/headers";
+import { verifyToken } from "@/actions/user-actions";
+import NavbarActions from "./nav-bar-actions";
 
-export default function Navbar(): React.ReactNode {
+export default async function Navbar(): Promise<React.ReactNode> {
+  const token = cookies().get("jwt");
+  const res = await verifyToken(token?.value);
+
   return (
     <nav className="shadow py-6 z-50">
       <div className="container flex justify-between items-center">
         <Logo />
-        <div className="space-x-4 flex">
-          <SignInModal />
-          <RegisterModal />
-        </div>
+        <NavbarActions user={res?.user} success={res?.success} />
       </div>
     </nav>
   );

@@ -14,7 +14,7 @@ import { loginSchema } from "./zod-schemas";
 import { SafeParseReturnType } from "zod";
 import { LoginSchemaType } from "./types";
 import { useToast } from "../ui/use-toast";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 export default function SignInModal() {
   const { toast } = useToast();

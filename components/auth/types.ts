@@ -15,5 +15,5 @@ export interface ResponseType {
   status: number;
   success: boolean;
   error?: string;
-  data?: unknown;
+  user?: unknown;
 }

@@ -2,14 +2,32 @@
 
 import prisma from "@/app/db";
 import { LoginSchemaType, RegisterSchemaType } from "@/components/auth/types";
-import {
-  formatZodError,
-  generateJWTToken,
-  hashPassword,
-} from "@/components/auth/utils";
+import { formatZodError, hashPassword } from "@/components/auth/utils";
 import { loginSchema, registerSchema } from "@/components/auth/zod-schemas";
 import { ZodError } from "zod";
 import bcrypt from "bcryptjs";
+import * as jose from "jose";
+import { cookies } from "next/headers";
+
+async function generateJWTToken(email: string, id: number) {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  return await new jose.SignJWT({ email, id })
+    .setProtectedHeader({ alg: "HS256" })
+    .sign(secret);
+}
+
+async function setAuthCookie(email: string, id: number) {
+  // setCookie("jwt", await generateJWTToken(email, id), {
+  //   maxAge: 60 * 60 * 24 * 7, // 7 days
+  // }
+  cookies().set("jwt", await generateJWTToken(email, id), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+    path: "/",
+  });
+}
 
 export const createUserAction = async (newUser: RegisterSchemaType) => {
   try {
@@ -43,10 +61,16 @@ export const createUserAction = async (newUser: RegisterSchemaType) => {
       },
     });
 
+    setAuthCookie(user.email, user.id);
+
     return {
       status: 200,
       success: true,
-      token: await generateJWTToken(user.email, user.id),
+      user: {
+        email: user.email,
+        firstname: user.first_name,
+        lastname: user.last_name,
+      },
     };
   } catch (error: any | ZodError) {
     if (error instanceof ZodError) {
@@ -97,10 +121,16 @@ export const signInAction = async (user: LoginSchemaType) => {
       };
     }
 
+    setAuthCookie(userWithEmail.email, userWithEmail.id);
+
     return {
       status: 200,
       success: true,
-      token: await generateJWTToken(userWithEmail.email, userWithEmail.id),
+      user: {
+        email: userWithEmail.email,
+        firstname: userWithEmail.first_name,
+        lastname: userWithEmail.last_name,
+      },
     };
   } catch (error: any | ZodError) {
     if (error instanceof ZodError) {
@@ -116,6 +146,53 @@ export const signInAction = async (user: LoginSchemaType) => {
       status: 500,
       success: false,
       error: error?.message || "An error occurred during sign in",
+    };
+  }
+};
+
+export const verifyToken = async (token: string | undefined) => {
+  if (!token) {
+    return {
+      success: false,
+      error: "No token provided",
+    };
+  }
+
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const { payload }: { payload: { email: string } } = await jose.jwtVerify(
+      token,
+      secret
+    );
+    if (!payload) {
+      return {
+        success: false,
+        error: "Invalid token",
+      };
+    }
+    const user = await prisma.user.findFirst({
+      where: {
+        email: payload.email,
+      },
+      select: {
+        first_name: true,
+        last_name: true,
+        email: true,
+      },
+    });
+
+    return {
+      success: true,
+      user: {
+        email: user?.email,
+        firstname: user?.first_name,
+        lastname: user?.last_name,
+      },
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "An error occurred while verifying token. Token has been deleted",
     };
   }
 };

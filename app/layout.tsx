@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/nav-bar";
 import SearchBar from "@/components/search-bar";
 import { Toaster } from "@/components/ui/toaster";
+import AuthContextProvider from "./context/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Toaster />
-        <Navbar />
-        <SearchBar />
-        <main className="container -mt-10 mb-20">{children}</main>
-      </body>
+      <AuthContextProvider>
+        <body className={inter.className}>
+          <Toaster />
+          <Navbar />
+          <SearchBar />
+          <main className="container -mt-10 mb-20">{children}</main>
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }
