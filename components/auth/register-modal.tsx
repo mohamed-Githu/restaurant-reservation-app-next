@@ -15,10 +15,12 @@ import { ZodError } from "zod";
 import { registerSchema } from "./zod-schemas";
 import { formatZodError } from "./utils";
 import { ResponseType } from "./types";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { AuthContext } from "@/app/context/auth-context";
 
 export default function RegisterModal() {
   const { toast } = useToast();
+  const { setUser } = useContext(AuthContext);
   const formRef = useRef<HTMLFormElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -34,7 +36,7 @@ export default function RegisterModal() {
 
     try {
       const result = registerSchema.parse(newUser);
-      const res: ResponseType | undefined = await createUserAction(result);
+      const res: ResponseType | any = await createUserAction(result);
 
       // If user creation failed, show error message
       if (!res?.success) {
@@ -49,6 +51,9 @@ export default function RegisterModal() {
       // If user creation is successful, show success message
       triggerRef.current?.click();
       formRef.current?.reset();
+      if (res?.success && res?.user) {
+        setUser(res.user);
+      }
       toast({
         variant: "success",
         title: "Your Account is Created!",

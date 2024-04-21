@@ -196,3 +196,17 @@ export const verifyToken = async (token: string | undefined) => {
     };
   }
 };
+
+export const signOutAction = async () => {
+  try {
+    cookies().delete("jwt");
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: "An error occurred while signing out",
+    };
+  }
+};

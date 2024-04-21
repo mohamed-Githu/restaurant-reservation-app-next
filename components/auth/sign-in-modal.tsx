@@ -15,9 +15,11 @@ import { SafeParseReturnType } from "zod";
 import { LoginSchemaType } from "./types";
 import { useToast } from "../ui/use-toast";
 import { useContext, useRef } from "react";
+import { AuthContext } from "@/app/context/auth-context";
 
 export default function SignInModal() {
   const { toast } = useToast();
+  const { setUser } = useContext(AuthContext);
   const formRef = useRef<HTMLFormElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -33,7 +35,8 @@ export default function SignInModal() {
       const res = await signInAction(result.data);
       triggerRef.current?.click();
       formRef.current?.reset();
-      if (res?.success) {
+      if (res?.success && res?.user) {
+        setUser(res.user);
         toast({
           variant: "success",
           title: "Sign In Successful",
