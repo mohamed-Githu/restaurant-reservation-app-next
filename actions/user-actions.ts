@@ -150,7 +150,7 @@ export const signInAction = async (user: LoginSchemaType) => {
   }
 };
 
-export const verifyToken = async (token: string | undefined) => {
+export const verifyTokenAction = async (token: string | undefined) => {
   if (!token) {
     return {
       success: false,

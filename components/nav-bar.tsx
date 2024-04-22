@@ -1,11 +1,12 @@
 import Logo from "./logo";
 import { cookies } from "next/headers";
-import { verifyToken } from "@/actions/user-actions";
 import NavbarActions from "./nav-bar-actions";
+import useAuth from "@/hooks/use-auth";
 
-export default async function Navbar(): Promise<React.ReactNode> {
-  const token = cookies().get("jwt");
-  const res = await verifyToken(token?.value);
+export default async function Navbar() {
+  const token = cookies().get("jwt")?.name;
+  const { verifyToken } = useAuth();
+  const res: any = verifyToken(token);
 
   return (
     <nav className="shadow py-6 z-50">
