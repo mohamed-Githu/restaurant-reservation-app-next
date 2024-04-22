@@ -4,9 +4,9 @@ import NavbarActions from "./nav-bar-actions";
 import useAuth from "@/hooks/use-auth";
 
 export default async function Navbar() {
-  const token = cookies().get("jwt")?.name;
+  const token = cookies().get("jwt")?.value;
   const { verifyToken } = useAuth();
-  const res: any = verifyToken(token);
+  const res: any = await verifyToken(token);
 
   return (
     <nav className="shadow py-6 z-50">

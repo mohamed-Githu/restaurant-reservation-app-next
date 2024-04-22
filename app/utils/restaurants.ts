@@ -19,6 +19,8 @@ export const getRestaurantBySlug = async (
       name: true,
       images: true,
       description: true,
+      open_time: true,
+      close_time: true,
       reviews: {
         include: {
           user: {

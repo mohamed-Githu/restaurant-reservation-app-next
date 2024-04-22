@@ -18,7 +18,7 @@ export default function NavbarActions({ user, success }: NavbarActionsProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const authContext = useContext(AuthContext);
   const { toast } = useToast();
-  if (success && user && !user.email && !user.firstname && !user.lastname) {
+  if (success && user && user.email && user.firstname && user.lastname) {
     authContext.setUser(user);
   }
 
@@ -45,7 +45,7 @@ export default function NavbarActions({ user, success }: NavbarActionsProps) {
 
   return (
     <>
-      {!authContext.user && (
+      {!user && (
         <div className="space-x-4 flex">
           <>
             <SignInModal />
@@ -53,11 +53,11 @@ export default function NavbarActions({ user, success }: NavbarActionsProps) {
           </>
         </div>
       )}
-      {authContext.user && (
+      {user && (
         <>
           <div className="flex items-center uppercase space-x-1 text-sm font-extrabold text-gray-800 -ml-5">
-            <p>{authContext.user.firstname}</p>
-            <p>{authContext.user.lastname}</p>
+            <p>{user.firstname}</p>
+            <p>{user.lastname}</p>
           </div>
           <Button
             disabled={isLoading}

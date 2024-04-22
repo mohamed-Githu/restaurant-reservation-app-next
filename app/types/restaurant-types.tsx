@@ -16,6 +16,8 @@ export interface RestaurantDetailsType {
   images: string[];
   description: string;
   reviews: RestaurantDescriptionReview[];
+  open_time: string;
+  close_time: string;
 }
 
 export interface PriceCategoryType {
