@@ -1,47 +1,14 @@
 "use client";
 
-import { useContext, useState } from "react";
 import RegisterModal from "./auth/register-modal";
 import SignInModal from "./auth/sign-in-modal";
-import { AuthContext, User } from "@/app/context/auth-context";
-import { Button } from "./ui/button";
-import { signOutAction } from "@/actions/user-actions";
+import NavbarActionsLogged from "./auth/nav-bar-actions-logged";
+import { useContext } from "react";
+import { AuthContext } from "@/app/context/auth-context";
 import { Loader2 } from "lucide-react";
-import { useToast } from "./ui/use-toast";
 
-interface NavbarActionsProps {
-  user?: User;
-  success: boolean;
-}
-
-export default function NavbarActions({ user, success }: NavbarActionsProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const authContext = useContext(AuthContext);
-  const { toast } = useToast();
-  if (success && user && user.email && user.firstname && user.lastname) {
-    authContext.setUser(user);
-  }
-
-  const handleSignOut = async () => {
-    setIsLoading(true);
-    const res: any = await signOutAction();
-    if (res?.success) {
-      setIsLoading(false);
-      authContext.setUser(null);
-      toast({
-        title: "Success",
-        description: "You have been signed out",
-        variant: "success",
-      });
-    } else {
-      setIsLoading(false);
-      toast({
-        title: "Error",
-        description: res?.error,
-        variant: "destructive",
-      });
-    }
-  };
+export default function NavbarActions() {
+  const { user, isLoading } = useContext(AuthContext);
 
   return (
     <>
@@ -53,21 +20,16 @@ export default function NavbarActions({ user, success }: NavbarActionsProps) {
           </>
         </div>
       )}
-      {user && (
-        <>
-          <div className="flex items-center uppercase space-x-1 text-sm font-extrabold text-gray-800 -ml-5">
-            <p>{user.firstname}</p>
-            <p>{user.lastname}</p>
-          </div>
-          <Button
-            disabled={isLoading}
-            variant="outline"
-            onClick={handleSignOut}
-          >
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{" "}
-            Sign Out
-          </Button>
-        </>
+      {user && user?.firstname && user?.lastname && (
+        <NavbarActionsLogged
+          firstname={user?.firstname}
+          lastname={user?.lastname}
+        />
+      )}
+      {isLoading && (
+        <div className="w-screen h-screen absolute flex items-center justify-center bg-white z-50 top-0 left-0 no-doc-scroll">
+          <Loader2 className="animate-spin size-10" />
+        </div>
       )}
     </>
   );

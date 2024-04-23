@@ -8,6 +8,7 @@ import { ZodError } from "zod";
 import bcrypt from "bcryptjs";
 import * as jose from "jose";
 import { cookies } from "next/headers";
+import { setCookie, deleteCookie, getCookie } from "cookies-next";
 
 async function generateJWTToken(email: string, id: number) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -17,15 +18,13 @@ async function generateJWTToken(email: string, id: number) {
 }
 
 async function setAuthCookie(email: string, id: number) {
-  // setCookie("jwt", await generateJWTToken(email, id), {
-  //   maxAge: 60 * 60 * 24 * 7, // 7 days
-  // }
-  cookies().set("jwt", await generateJWTToken(email, id), {
+  setCookie("jwt", await generateJWTToken(email, id), {
+    maxAge: 60 * 60 * 24 * 7, // 7 days
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
     path: "/",
+    secure: process.env.NODE_ENV === "production",
+    cookies,
   });
 }
 
@@ -150,7 +149,9 @@ export const signInAction = async (user: LoginSchemaType) => {
   }
 };
 
-export const verifyTokenAction = async (token: string | undefined) => {
+export const verifyTokenAction = async () => {
+  const token = getCookie("jwt", { cookies });
+
   if (!token) {
     return {
       success: false,
@@ -199,10 +200,10 @@ export const verifyTokenAction = async (token: string | undefined) => {
 
 export const signOutAction = async () => {
   try {
-    cookies().delete("jwt");
+    deleteCookie("jwt", { cookies });
     return {
       success: true,
-    }
+    };
   } catch (error) {
     return {
       success: false,
