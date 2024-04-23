@@ -31,6 +31,38 @@ model Restaurant {
   cuisine_id     Int
   cuisine        Cuisine        @relation(fields: [cuisine_id], references: [id])
   reviews        Review[]
+  bookings       Booking[]
+  tables         Table[]
+}
+
+model Booking {
+  id               Int                @id @default(autoincrement())
+  number_of_people Int
+  booking_time     DateTime
+  user_id          Int
+  restaurant_id    Int
+  user             User               @relation(fields: [user_id], references: [id])
+  restaurant       Restaurant         @relation(fields: [restaurant_id], references: [id])
+  tables           BookingsOnTables[]
+
+  @@unique([restaurant_id, booking_time])
+}
+
+model Table {
+  id           Int                @id @default(autoincrement())
+  seats        Int
+  restaurantId Int
+  restaurant   Restaurant         @relation(fields: [restaurantId], references: [id])
+  bookings     BookingsOnTables[]
+}
+
+model BookingsOnTables {
+  table_id   Int
+  booking_id Int
+  table      Table   @relation(fields: [table_id], references: [id])
+  booking    Booking @relation(fields: [booking_id], references: [id])
+
+  @@id([booking_id, table_id])
 }
 
 model Item {
@@ -61,16 +93,17 @@ model Cuisine {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   first_name String
   last_name  String
   password   String
   city       String
-  email      String   @unique
+  email      String    @unique
   phone      String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
   reviews    Review[]
+  bookings   Booking[]
 }
 
 model Review {
