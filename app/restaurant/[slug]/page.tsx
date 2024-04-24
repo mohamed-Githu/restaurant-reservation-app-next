@@ -6,6 +6,7 @@ import DetailsView from "../details-view";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import ItemsGrid from "../items-grid";
 
 export async function generateMetadata({
   params,
@@ -23,7 +24,7 @@ export default async function RestaurantDetailsPage({
   params,
 }: RestaurantDetailsPageProps): Promise<React.ReactNode> {
   const { slug } = params;
-  const { name, description, images, reviews, open_time, close_time } =
+  const { name, description, images, reviews, open_time, close_time, items } =
     await getRestaurantBySlug(slug);
 
   return (
@@ -45,7 +46,9 @@ export default async function RestaurantDetailsPage({
               closeTime={close_time}
             />
           </TabsContent>
-          <TabsContent value="menu">these are the items</TabsContent>
+          <TabsContent value="menu">
+            <ItemsGrid items={items} />
+          </TabsContent>
         </Card>
         <ReservationForm
           openTime={open_time}

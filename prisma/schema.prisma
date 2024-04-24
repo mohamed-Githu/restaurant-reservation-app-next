@@ -51,8 +51,8 @@ model Booking {
 model Table {
   id           Int                @id @default(autoincrement())
   seats        Int
-  restaurantId Int
-  restaurant   Restaurant         @relation(fields: [restaurantId], references: [id])
+  restaurant_id Int
+  restaurant   Restaurant         @relation(fields: [restaurant_id], references: [id])
   bookings     BookingsOnTables[]
 }
 
