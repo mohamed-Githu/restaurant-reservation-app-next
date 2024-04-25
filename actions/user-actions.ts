@@ -179,12 +179,14 @@ export const verifyTokenAction = async () => {
         first_name: true,
         last_name: true,
         email: true,
+        id: true,
       },
     });
 
     return {
       success: true,
       user: {
+        id: user?.id,
         email: user?.email,
         firstname: user?.first_name,
         lastname: user?.last_name,

@@ -17,9 +17,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface DatePickerProps {
   inputName: string;
+  pending: boolean;
 }
 
-export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
+export function DatePicker({
+  inputName,
+  pending,
+}: DatePickerProps): React.ReactNode {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -53,7 +57,7 @@ export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
         readOnly
       />
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger disabled={pending} asChild>
           <Button
             variant={"outline"}
             className={cn(
@@ -72,6 +76,7 @@ export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
             selected={date}
             onSelect={handleDateChange}
             initialFocus
+            disabled={pending}
           />
         </PopoverContent>
       </Popover>

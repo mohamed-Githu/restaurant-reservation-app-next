@@ -1,12 +1,12 @@
 import { getRestaurantBySlug } from "@/app/utils/restaurants";
 import { Metadata } from "next";
 import { RestaurantDetailsPageProps } from "./types";
-import ReservationForm from "../reservation-form";
 import DetailsView from "../details-view";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import ItemsGrid from "../items-grid";
+import ReservationView from "../reservation-view";
 
 export async function generateMetadata({
   params,
@@ -35,6 +35,7 @@ export default async function RestaurantDetailsPage({
     items,
     max_seat_number,
     min_seat_number,
+    id,
   } = await getRestaurantBySlug(slug);
 
   return (
@@ -60,9 +61,10 @@ export default async function RestaurantDetailsPage({
             <ItemsGrid items={items} />
           </TabsContent>
         </Card>
-        <ReservationForm
+        <ReservationView
           maxSeatsNumber={max_seat_number}
           minSeatsNumber={min_seat_number}
+          restaurantId={id}
           className="col-span-2 h-min sticky top-12"
         />
       </div>

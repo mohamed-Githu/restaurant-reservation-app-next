@@ -5,7 +5,6 @@ import { DoorClosed, DoorOpen } from "lucide-react";
 import Image from "next/image";
 import ReviewsList from "./[slug]/reviews-list";
 import { RestaurantDescriptionReview } from "../types/restaurant-types";
-import { formatTime } from "../utils/reservations";
 import { Separator } from "@/components/ui/separator";
 
 interface DetailsViewProps {
@@ -32,11 +31,11 @@ export default function DetailsView({
         <RestaurantRating reviews={reviews} />
         <div className="flex items-center *:flex *:items-center text-gray-700 space-x-4">
           <p>
-            <DoorOpen className="mr-2" /> {formatTime(openTime)}
+            <DoorOpen className="mr-2" /> {openTime}
           </p>
           <span>-</span>
           <p>
-            <DoorClosed className="mr-2" /> {formatTime(closeTime)}
+            <DoorClosed className="mr-2" /> {closeTime}
           </p>
         </div>
       </div>

@@ -75,7 +75,7 @@ export default async function handler(
   );
 
   for (const key of Object.keys(bookedTimesFrequency)) {
-    if (bookedTimesFrequency[key] === max_reservations_number) {
+    if (bookedTimesFrequency[key] >= max_reservations_number) {
       delete allTimes[key];
     }
   }

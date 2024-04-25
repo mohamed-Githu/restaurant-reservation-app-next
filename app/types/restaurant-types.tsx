@@ -18,6 +18,7 @@ export interface RestaurantCardType {
 }
 
 export interface RestaurantDetailsType {
+  id: number;
   name: string;
   images: string[];
   description: string;
