@@ -61,7 +61,6 @@ export default async function RestaurantDetailsPage({
           </TabsContent>
         </Card>
         <ReservationForm
-          slug={slug}
           maxSeatsNumber={max_seat_number}
           minSeatsNumber={min_seat_number}
           className="col-span-2 h-min sticky top-12"

@@ -39,8 +39,6 @@ export default async function handler(
   if (!bookings.length && restaurant) {
     const options = getTimeOptions(restaurant.open_time, restaurant.close_time);
 
-    console.log(options);
-
     return res.json(options);
   }
 

@@ -9,23 +9,13 @@ interface ReservationFormProps {
   className?: string;
   maxSeatsNumber: number;
   minSeatsNumber: number;
-  slug: string;
 }
 
-export default async function ReservationForm({
+export default function ReservationForm({
   className,
   maxSeatsNumber,
   minSeatsNumber,
-  slug,
-}: ReservationFormProps): Promise<JSX.Element> {
-  // const res = await fetch(
-  //   `${process.env.BASE_URL}/api/get-available-times?slug=${slug}`,
-  //   { next: { revalidate: 1 } }
-  // );
-
-  // const options = await res.json();
-  // console.log(options);
-
+}: ReservationFormProps): React.ReactNode {
   return (
     <Card className={className}>
       <form action="" id="reservation-form">
