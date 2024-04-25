@@ -11,16 +11,33 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface DatePickerProps {
   inputName: string;
 }
 
 export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
-  const [date, setDate] = useState<Date>();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
+  const [date, setDate] = useState<Date>(
+    new Date(searchParams?.get("date") || Date.now())
+  );
+
+  const handleDateChange = (date: any) => {
+    setDate(date);
+    router.push(
+      `${pathname}?date=${format(date || new Date(Date.now()), "yyyy-MM-dd")}`,
+      {
+        scroll: false,
+      }
+    );
+    triggerButtonRef.current?.click();
+  };
 
   return (
     <div className="flex items-center text-gray-700 justify-between">
@@ -28,10 +45,12 @@ export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
         Pick a date
       </Label>
       <input
-        type="hidden"
-        value={format(date || new Date(Date.now()), "yyyy-MM-dd")}
+        type="text"
+        hidden
+        value={format(date, "yyyy-MM-dd")}
         name={inputName}
         required
+        readOnly
       />
       <Popover>
         <PopoverTrigger asChild>
@@ -41,6 +60,7 @@ export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
               "w-56 justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
+            ref={triggerButtonRef}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date ? format(date, "PPP") : <span>Pick a date</span>}
@@ -50,14 +70,8 @@ export function DatePicker({ inputName }: DatePickerProps): React.ReactNode {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             initialFocus
-          />
-          <Input
-            type="date"
-            value={date?.toLocaleDateString()}
-            hidden
-            name="date"
           />
         </PopoverContent>
       </Popover>

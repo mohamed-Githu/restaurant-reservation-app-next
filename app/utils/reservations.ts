@@ -8,19 +8,24 @@ for (let hour = 0; hour <= 23; hour++) {
   }
 }
 
-export function formatTime(time: string): string {
-  return time.substring(0, time.lastIndexOf(":"));
+export function formatTime(time: string | Date): string {
+  if (typeof time === "string") {
+    return time.substring(0, time.lastIndexOf(":"));
+  } else {
+    return time.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
 }
 
 export function getTimeOptions(
   openTime: string,
   closeTime: string
 ): Array<string> {
-  const startStr = formatTime(openTime);
-  const endStr = formatTime(closeTime);
-
-  const startTimeIndex = allTimes.indexOf(startStr);
-  const endTimeIndex = allTimes.indexOf(endStr);
+  const startTimeIndex = allTimes.indexOf(openTime);
+  const endTimeIndex = allTimes.indexOf(closeTime);
 
   const timeOptions = allTimes.slice(startTimeIndex, endTimeIndex + 1);
 

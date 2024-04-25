@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { PlusCircle, MinusCircle, Users } from "lucide-react";
 import { Label } from "@/components/ui/label";

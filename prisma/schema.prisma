@@ -14,55 +14,38 @@ enum PRICE_CATEGORY {
 }
 
 model Restaurant {
-  id             Int            @id @default(autoincrement())
-  name           String         @unique
-  slug           String         @unique
-  price_category PRICE_CATEGORY
-  main_image     String
-  images         String[]
-  description    String
-  open_time      String
-  close_time     String
-  created_at     DateTime       @default(now())
-  udpated_at     DateTime       @updatedAt
-  items          Item[]
-  location_id    Int
-  location       Location       @relation(fields: [location_id], references: [id])
-  cuisine_id     Int
-  cuisine        Cuisine        @relation(fields: [cuisine_id], references: [id])
-  reviews        Review[]
-  bookings       Booking[]
-  tables         Table[]
+  id                      Int            @id @default(autoincrement())
+  name                    String         @unique
+  slug                    String         @unique
+  price_category          PRICE_CATEGORY
+  main_image              String
+  images                  String[]
+  description             String
+  open_time               String
+  close_time              String
+  max_seat_number         Int            @default(4)
+  min_seat_number         Int            @default(1)
+  max_reservations_number Int            @default(2)
+  created_at              DateTime       @default(now())
+  udpated_at              DateTime       @updatedAt
+  items                   Item[]
+  location_id             Int
+  location                Location       @relation(fields: [location_id], references: [id])
+  cuisine_id              Int
+  cuisine                 Cuisine        @relation(fields: [cuisine_id], references: [id])
+  reviews                 Review[]
+  bookings                Booking[]
 }
 
 model Booking {
-  id               Int                @id @default(autoincrement())
+  id               Int        @id @default(autoincrement())
   number_of_people Int
-  booking_time     DateTime
+  booking_date     String
+  booking_time     String
   user_id          Int
   restaurant_id    Int
-  user             User               @relation(fields: [user_id], references: [id])
-  restaurant       Restaurant         @relation(fields: [restaurant_id], references: [id])
-  tables           BookingsOnTables[]
-
-  @@unique([restaurant_id, booking_time])
-}
-
-model Table {
-  id           Int                @id @default(autoincrement())
-  seats        Int
-  restaurant_id Int
-  restaurant   Restaurant         @relation(fields: [restaurant_id], references: [id])
-  bookings     BookingsOnTables[]
-}
-
-model BookingsOnTables {
-  table_id   Int
-  booking_id Int
-  table      Table   @relation(fields: [table_id], references: [id])
-  booking    Booking @relation(fields: [booking_id], references: [id])
-
-  @@id([booking_id, table_id])
+  user             User       @relation(fields: [user_id], references: [id])
+  restaurant       Restaurant @relation(fields: [restaurant_id], references: [id])
 }
 
 model Item {

@@ -27,7 +27,7 @@ export default function NavbarActions() {
         />
       )}
       {isLoading && (
-        <div className="w-screen h-screen absolute flex items-center justify-center bg-white z-50 top-0 left-0 no-doc-scroll">
+        <div className="w-screen h-screen fixed flex items-center justify-center bg-white z-50 top-0 left-0 no-doc-scroll">
           <Loader2 className="animate-spin size-10" />
         </div>
       )}

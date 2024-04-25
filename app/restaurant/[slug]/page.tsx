@@ -24,8 +24,18 @@ export default async function RestaurantDetailsPage({
   params,
 }: RestaurantDetailsPageProps): Promise<React.ReactNode> {
   const { slug } = params;
-  const { name, description, images, reviews, open_time, close_time, items } =
-    await getRestaurantBySlug(slug);
+
+  const {
+    name,
+    description,
+    images,
+    reviews,
+    open_time,
+    close_time,
+    items,
+    max_seat_number,
+    min_seat_number,
+  } = await getRestaurantBySlug(slug);
 
   return (
     <Tabs defaultValue="overview">
@@ -51,8 +61,9 @@ export default async function RestaurantDetailsPage({
           </TabsContent>
         </Card>
         <ReservationForm
-          openTime={open_time}
-          closeTime={close_time}
+          slug={slug}
+          maxSeatsNumber={max_seat_number}
+          minSeatsNumber={min_seat_number}
           className="col-span-2 h-min sticky top-12"
         />
       </div>

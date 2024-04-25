@@ -4,7 +4,7 @@ import { RestaurantCardType } from "@/app/types/restaurant-types";
 import PriceIcon from "./price-icon";
 import Link from "next/link";
 import RestaurantRating from "./restaurant-rating";
-import { calculateRatingAvg } from "@/app/utils/restaurants";
+import { format } from "date-fns";
 
 export default function RestaurantCard({
   name,
@@ -17,7 +17,7 @@ export default function RestaurantCard({
 }: RestaurantCardType): React.ReactNode {
   return (
     <Card className="overflow-hidden">
-      <Link href={`/restaurant/${slug}`}>
+      <Link href={`/restaurant/${slug}?date=${format(new Date(Date.now()), "yyyy-MM-dd")}`}>
         <div className="h-36">
           <Image
             src={main_image}
@@ -25,6 +25,7 @@ export default function RestaurantCard({
             className="object-cover h-full w-full"
             width={234}
             height={132}
+            priority={true}
           />
         </div>
         <CardHeader>

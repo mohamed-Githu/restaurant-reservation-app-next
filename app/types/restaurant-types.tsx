@@ -1,4 +1,10 @@
-import { Cuisine, Location, PRICE_CATEGORY, Review, Item } from "@prisma/client";
+import {
+  Cuisine,
+  Location,
+  PRICE_CATEGORY,
+  Review,
+  Item,
+} from "@prisma/client";
 
 export interface RestaurantCardType {
   id: number;
@@ -19,6 +25,8 @@ export interface RestaurantDetailsType {
   open_time: string;
   close_time: string;
   items: Item[];
+  max_seat_number: number;
+  min_seat_number: number;
 }
 
 export interface PriceCategoryType {

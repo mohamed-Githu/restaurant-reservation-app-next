@@ -16,11 +16,14 @@ export const getRestaurantBySlug = async (
       slug,
     },
     select: {
+      id: true,
       name: true,
       images: true,
       description: true,
       open_time: true,
       close_time: true,
+      max_seat_number: true,
+      min_seat_number: true,
       items: true,
       reviews: {
         include: {
