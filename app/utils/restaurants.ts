@@ -25,17 +25,6 @@ export const getRestaurantBySlug = async (
       max_seat_number: true,
       min_seat_number: true,
       items: true,
-      reviews: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              first_name: true,
-              last_name: true,
-            },
-          },
-        },
-      },
     },
   });
 

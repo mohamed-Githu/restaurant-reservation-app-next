@@ -16,7 +16,7 @@ export default function ReviewsList({ reviews }: ReviewListProps) {
                 {review.user.last_name[0]}
               </AvatarFallback>
             </Avatar>
-            <h3 className="text-lg font-bold mt-3 flex flex-wrap justify-center">
+            <h3 className="text-lg font-bold mt-3 flex flex-wrap justify-center w-40">
               <span>{review.user.first_name}</span>{" "}
               <span>{review.user.last_name}</span>
             </h3>

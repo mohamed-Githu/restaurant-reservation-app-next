@@ -22,7 +22,6 @@ export interface RestaurantDetailsType {
   name: string;
   images: string[];
   description: string;
-  reviews: RestaurantDescriptionReview[];
   open_time: string;
   close_time: string;
   items: Item[];

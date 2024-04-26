@@ -39,10 +39,9 @@ export default function ReservationView({
         errorMessage += `\n${key.toUpperCase()}:\n${value.join("\n")}\n`;
       }
 
-      console.log(errorMessage);
       toast({
         variant: "destructive",
-        title: "Sign In Failed",
+        title: "Error",
         description: errorMessage,
       });
 

@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import ItemsGrid from "../items-grid";
 import ReservationView from "../reservation-view";
+import { isReviewedAction } from "@/actions/is-reviewed-action";
+import ReviewsList from "./reviews-list";
 
 export async function generateMetadata({
   params,
@@ -29,7 +31,6 @@ export default async function RestaurantDetailsPage({
     name,
     description,
     images,
-    reviews,
     open_time,
     close_time,
     items,
@@ -37,6 +38,15 @@ export default async function RestaurantDetailsPage({
     min_seat_number,
     id,
   } = await getRestaurantBySlug(slug);
+
+  const isReviewed = await isReviewedAction(id);
+
+  const res = await fetch(`${process.env.BASE_URL}/api/get-restaurant-reviews?id=${id}`, {
+    cache: "no-store",
+    next: { tags: ["reviews"] },
+  });
+
+  const reviews = await res.json();
 
   return (
     <Tabs defaultValue="overview">
@@ -55,7 +65,18 @@ export default async function RestaurantDetailsPage({
               reviews={reviews}
               openTime={open_time}
               closeTime={close_time}
-            />
+              canReview={isReviewed}
+            >
+              {reviews.length > 0 && (
+                <>
+                  <h3 className="text-3xl font-extrabold mt-8 mb-2 mx-4">
+                    Reviews
+                  </h3>
+                  <Separator />
+                  <ReviewsList reviews={reviews} />
+                </>
+              )}
+            </DetailsView>
           </TabsContent>
           <TabsContent value="menu">
             <ItemsGrid items={items} />
