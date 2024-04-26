@@ -76,7 +76,7 @@ export function DatePicker({
             selected={date}
             onSelect={handleDateChange}
             initialFocus
-            disabled={pending}
+            disabled={{ before: new Date(Date.now()) }}
           />
         </PopoverContent>
       </Popover>
