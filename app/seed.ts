@@ -11,7 +11,7 @@ export default async function handler() {
   await prisma.user.deleteMany();
 
   await prisma.location.createMany({
-    data: [{ name: "ottawa" }, { name: "toronto" }, { name: "niagara" }],
+    data: [{ name: "roma" }, { name: "milan" }, { name: "florence" }],
   });
 
   await prisma.cuisine.createMany({
@@ -29,11 +29,11 @@ export default async function handler() {
     cuisines.find((cuisine) => cuisine.name === "italian")?.id || 1;
 
   const ottawaLocationId =
-    locations.find((location) => location.name === "ottawa")?.id || 1;
+    locations.find((location) => location.name === "roma")?.id || 1;
   const torontoLocationId =
-    locations.find((location) => location.name === "toronto")?.id || 1;
+    locations.find((location) => location.name === "milan")?.id || 1;
   const niagaraLocationId =
-    locations.find((location) => location.name === "niagara")?.id || 1;
+    locations.find((location) => location.name === "florence")?.id || 1;
 
   await prisma.restaurant.createMany({
     data: [
