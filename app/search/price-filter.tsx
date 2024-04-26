@@ -34,7 +34,7 @@ export default function PriceFilter() {
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.CHEAP)}
           >
-            $
+            $$
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
@@ -42,7 +42,7 @@ export default function PriceFilter() {
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.REGULAR)}
           >
-            $$
+            $$$
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
@@ -50,7 +50,7 @@ export default function PriceFilter() {
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.EXPENSIVE)}
           >
-            $$$
+            $$$$
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>

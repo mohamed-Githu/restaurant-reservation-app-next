@@ -25,9 +25,5 @@ export default async function handler(
     },
   });
 
-  // if (!reviews) {
-  //   return res.status(404).json([]);
-  // }
-
   res.json(reviews);
 }

@@ -1,11 +1,8 @@
 import { Metadata } from "next";
-import { filterRestaurants } from "../utils/restaurants";
-import { RestaurantCardType } from "../types/restaurant-types";
-import RestaurantSearchCard from "./restaurant-search-card";
 import SideBar from "./side-bar";
-import { getLocations } from "../utils/locations";
-import { getCuisines } from "../utils/cuisines";
 import { SearchPageProps } from "./types";
+import Filters from "./filters";
+import RestaurantsList from "./restaurants-list";
 
 export const metadata: Metadata = {
   title: "BuonAppetito | Search",
@@ -14,18 +11,21 @@ export const metadata: Metadata = {
 export default async function SearchPage({
   searchParams,
 }: SearchPageProps): Promise<React.ReactNode> {
-  const restaurants = await filterRestaurants(searchParams);
-  const locations = await getLocations();
-  const cuisines = await getCuisines();
+  const locations = await fetch(
+    `${process.env.BASE_URL}/api/get-locations`
+  ).then((res) => res.json());
+  const cuisines = await fetch(`${process.env.BASE_URL}/api/get-cuisines`).then(
+    (res) => res.json()
+  );
 
   return (
-    <div className="grid grid-cols-5 gap-10">
-      <SideBar locations={locations} cuisines={cuisines} searchParams={searchParams} />
-      <div className="space-y-5 col-span-4">
-        {restaurants.map((restaurant: RestaurantCardType) => (
-          <RestaurantSearchCard {...restaurant} key={restaurant.id} />
-        ))}
-      </div>
+    <div className="grid grid-cols-5 gap-10 relative">
+      <SideBar
+        locations={locations}
+        cuisines={cuisines}
+        searchParams={searchParams}
+      />
+      <RestaurantsList filters={Object.entries(searchParams)} />
     </div>
   );
 }

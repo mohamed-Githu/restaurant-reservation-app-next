@@ -43,7 +43,7 @@ export interface ItemType {
 export interface FilterParamsType {
   location?: string;
   cuisine?: string;
-  price?: PRICE_CATEGORY;
+  price_category?: PRICE_CATEGORY;
 }
 
 export interface RestaurantDescriptionReview extends Review {

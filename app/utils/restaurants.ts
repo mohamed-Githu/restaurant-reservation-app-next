@@ -79,6 +79,9 @@ export const filterRestaurants = async (
   const where: any = {};
 
   for (const [queryParam, queryString] of Object.entries(searchParams)) {
+    if (!queryString) {
+      continue;
+    }
     if (queryParam === "price_category") {
       where[queryParam] = {
         equals: queryString,
