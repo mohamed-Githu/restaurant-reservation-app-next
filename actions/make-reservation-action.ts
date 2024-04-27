@@ -3,7 +3,7 @@
 import { makeReservationSchema } from "@/components/auth/zod-schemas";
 import { verifyTokenAction } from "./user-actions";
 import prisma from "@/app/db";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function makeReservationAction(
   restaurant_id: number,
@@ -81,7 +81,7 @@ export async function makeReservationAction(
     });
 
     
-    revalidateTag("times");
+    revalidatePath("/restaurant/[slug]");
     return {
       status: 200,
       success: true,
