@@ -80,8 +80,6 @@ export async function makeReservationAction(
       },
     });
 
-    
-    redirect("/profile");
     return {
       status: 200,
       success: true,

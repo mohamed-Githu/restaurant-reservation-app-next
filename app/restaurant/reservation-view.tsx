@@ -5,6 +5,7 @@ import { makeReservationAction } from "@/actions/make-reservation-action";
 import { makeReservationSchema } from "@/components/auth/zod-schemas";
 import { useToast } from "@/components/ui/use-toast";
 import ReservationViewForm from "./reservation-view-form";
+import { useRouter } from "next/navigation";
 
 interface ReservationFormProps {
   className?: string;
@@ -20,6 +21,7 @@ export default function ReservationView({
   restaurantId,
 }: ReservationFormProps): React.ReactNode {
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {
     const data = {
@@ -61,6 +63,8 @@ export default function ReservationView({
         title: "Booking completed successfully!",
         description: `You have successfully booked a table for ${data.peopleCount} people.\nDate: ${data.date} at ${data.time}`,
       });
+
+      router.push("/profile");
     } else {
       toast({
         variant: "destructive",
