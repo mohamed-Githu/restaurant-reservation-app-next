@@ -12,10 +12,12 @@ import { useSearchParams } from "next/navigation";
 
 export default function PriceFilter() {
   const searchParams = useSearchParams();
-  const searchParamsObj: any = {};
+  const searchParamsObj: Record<string, string> = {};
 
-  for (const [key, value] of searchParams.entries()) {
-    searchParamsObj[key] = value;
+  if (searchParams !== null) {
+    for (const [key, value] of searchParams?.entries()) {
+      searchParamsObj[key] = value;
+    }
   }
 
   const getHrefObj = (price_category: PRICE_CATEGORY) => ({
@@ -33,6 +35,7 @@ export default function PriceFilter() {
           <Link
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.CHEAP)}
+            scroll={false}
           >
             $$
           </Link>
@@ -41,6 +44,7 @@ export default function PriceFilter() {
           <Link
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.REGULAR)}
+            scroll={false}
           >
             $$$
           </Link>
@@ -49,6 +53,7 @@ export default function PriceFilter() {
           <Link
             className={navigationMenuTriggerStyle()}
             href={getHrefObj(PRICE_CATEGORY.EXPENSIVE)}
+            scroll={false}
           >
             $$$$
           </Link>
