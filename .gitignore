@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # seeding file
-seed.ts
+/app/seed.ts
