@@ -14,11 +14,18 @@ export async function generateMetadata({
   params,
 }: RestaurantDetailsPageProps): Promise<Metadata> {
   const { slug } = params;
-  const { name, description } = await getRestaurantBySlug(slug);
+  const { name, description, main_image } = await getRestaurantBySlug(slug);
 
   return {
     title: `BuonAppetito | ${name}`,
     description,
+    openGraph: {
+      type: "website",
+      siteName: "BuonAppetito",
+      title: `BuonAppetito | ${name}`,
+      description,
+      images: [{ url: main_image }],
+    },
   };
 }
 
@@ -41,10 +48,13 @@ export default async function RestaurantDetailsPage({
 
   const isReviewed = await isReviewedAction(id);
 
-  const res = await fetch(`${process.env.BASE_URL}/api/get-restaurant-reviews?id=${id}`, {
-    cache: "no-store",
-    next: { tags: ["reviews"] },
-  });
+  const res = await fetch(
+    `${process.env.BASE_URL}/api/get-restaurant-reviews?id=${id}`,
+    {
+      cache: "no-store",
+      next: { tags: ["reviews"] },
+    }
+  );
 
   const reviews = await res.json();
 

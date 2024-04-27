@@ -27,6 +27,7 @@ export interface RestaurantDetailsType {
   items: Item[];
   max_seat_number: number;
   min_seat_number: number;
+  main_image: string;
 }
 
 export interface PriceCategoryType {

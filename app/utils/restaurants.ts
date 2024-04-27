@@ -25,6 +25,7 @@ export const getRestaurantBySlug = async (
       max_seat_number: true,
       min_seat_number: true,
       items: true,
+      main_image: true,
     },
   });
 
