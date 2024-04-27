@@ -9,6 +9,7 @@ import ItemsGrid from "../items-grid";
 import ReservationView from "../reservation-view";
 import { isReviewedAction } from "@/actions/is-reviewed-action";
 import ReviewsList from "./reviews-list";
+import { getRestaurantReviewsAction } from "@/actions/get-restaurant-reviews";
 
 export async function generateMetadata({
   params,
@@ -48,15 +49,7 @@ export default async function RestaurantDetailsPage({
 
   const isReviewed = await isReviewedAction(id);
 
-  const res = await fetch(
-    `${process.env.BASE_URL}/api/get-restaurant-reviews?id=${id}`,
-    {
-      cache: "no-store",
-      next: { tags: ["reviews"] },
-    }
-  );
-
-  const reviews = await res.json();
+  const reviews = await getRestaurantReviewsAction(id);
 
   return (
     <Tabs defaultValue="overview">
