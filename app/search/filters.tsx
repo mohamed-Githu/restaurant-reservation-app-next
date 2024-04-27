@@ -14,7 +14,7 @@ export default function Filters({ filters }: FiltersProps): JSX.Element {
   return (
     <>
       {filters.length > 0 && (
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-2 mt-2 flex-wrap">
           {filters.map((filterArr) => (
             <Badge
               className="capitalize rounded-full pl-4 text-sm font-normal"

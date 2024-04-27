@@ -1,7 +1,5 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { SideBarProps } from "./types";
-import { Cuisine, Location } from "@prisma/client";
 import PriceFilter from "./price-filter";
 import FilterList from "./filter-list";
 
@@ -11,7 +9,7 @@ export default function SideBar({
   searchParams,
 }: SideBarProps): React.ReactNode {
   return (
-    <Card className="shadow-md rounded-lg bg-white h-min">
+    <Card className="shadow-md rounded-lg bg-white h-min divide-y-2 xs:divide-y-0 xs:grid xs:grid-cols-3 xs:divide-x-2 xs:w-full xs:*:px-2">
       <CardHeader>
         <CardTitle className="mb-2">Region</CardTitle>
         <FilterList
@@ -21,7 +19,7 @@ export default function SideBar({
           queryString="location"
         />
       </CardHeader>
-      <Separator />
+
       <CardHeader>
         <CardTitle className="mb-2">Cuisine</CardTitle>
         <FilterList
@@ -31,7 +29,7 @@ export default function SideBar({
           searchParams={searchParams}
         />
       </CardHeader>
-      <Separator />
+
       <CardHeader>
         <CardTitle className="mb-2">Price</CardTitle>
         <PriceFilter />

@@ -28,7 +28,7 @@ export default function PriceFilter() {
 
   return (
     <NavigationMenu>
-      <NavigationMenuList>
+      <NavigationMenuList className="xl:flex xl:flex-col xl:items-start xl:gap-2 xl:space-x-0">
         <NavigationMenuItem>
           <Link
             className={navigationMenuTriggerStyle()}

@@ -26,7 +26,7 @@ export default function RootLayout({
           <Toaster />
           <Navbar />
           <SearchBar />
-          <main className="container -mt-10 mb-20">{children}</main>
+          <main className="container -mt-10 mb-20 px-2">{children}</main>
         </body>
       </AuthContextProvider>
     </html>

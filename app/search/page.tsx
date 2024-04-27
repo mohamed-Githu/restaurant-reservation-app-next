@@ -19,7 +19,7 @@ export default async function SearchPage({
   );
 
   return (
-    <div className="grid grid-cols-5 gap-10 relative">
+    <div className="grid grid-cols-5 sm:grid-cols-3 gap-8 sm:gap-2 xs:grid-cols-1 xs:gap-5 xl:gap-5 relative">
       <SideBar
         locations={locations}
         cuisines={cuisines}

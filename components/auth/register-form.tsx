@@ -13,7 +13,7 @@ export default function RegisterForm() {
   return (
     <>
       <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-2 items-center gap-4">
+        <div className="grid grid-cols-2 items-center gap-4 xs:grid-cols-1">
           <div className="space-y-1">
             <Label htmlFor="firstname">First Name</Label>
             <Input
@@ -34,7 +34,7 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 items-center gap-4">
+        <div className="grid grid-cols-2 items-center gap-4 xs:grid-cols-1">
           <div className="space-y-1">
             <Label htmlFor="firstname">Phone Number</Label>
             <Input
@@ -57,7 +57,7 @@ export default function RegisterForm() {
 
         <Separator />
 
-        <div className="grid grid-cols-4 items-center">
+        <div className="grid grid-cols-4 items-center xs:grid-cols-1 space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
             disabled={pending}
@@ -68,7 +68,7 @@ export default function RegisterForm() {
           />
         </div>
 
-        <div className="grid grid-cols-4 items-center">
+        <div className="grid grid-cols-4 items-center xs:grid-cols-1 space-y-2">
           <Label htmlFor="password">Password</Label>
           <Input
             disabled={pending}

@@ -44,7 +44,7 @@ export default function RestaurantsList({
           <Loader2 className="animate-spin size-8 mt-52 top-52 sticky" />
         </div>
       )}
-      <div className="space-y-5 col-span-4">
+      <div className="space-y-5 col-span-4 sm:col-span-2 xs:col-span-1">
         <Filters filters={filters} />
         {restaurants.map((restaurant: RestaurantCardType) => (
           <RestaurantSearchCard {...restaurant} key={restaurant.id} />

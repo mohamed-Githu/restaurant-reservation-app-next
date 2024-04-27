@@ -13,7 +13,7 @@ export default function NavbarActions() {
   return (
     <>
       {!user && (
-        <div className="space-x-4 flex">
+        <div className="space-x-4 flex sm:space-x-2">
           <>
             <SignInModal />
             <RegisterModal />

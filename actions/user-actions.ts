@@ -129,6 +129,7 @@ export const signInAction = async (user: LoginSchemaType) => {
         email: userWithEmail.email,
         firstname: userWithEmail.first_name,
         lastname: userWithEmail.last_name,
+        id: userWithEmail.id,
       },
     };
   } catch (error: any | ZodError) {

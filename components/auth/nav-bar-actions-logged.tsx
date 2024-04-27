@@ -6,6 +6,8 @@ import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { AuthContext } from "@/app/context/auth-context";
 import { signOutAction } from "@/actions/user-actions";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 interface NavbarActionsLoggedProps {
   firstname: string;
@@ -43,14 +45,34 @@ export default function NavbarActionsLogged({
 
   return (
     <>
-      <div className="flex items-center uppercase space-x-1 text-sm font-extrabold text-gray-800 -ml-5">
-        <p>{firstname}</p>
-        <p>{lastname}</p>
-      </div>
-      <Button disabled={isLoading} variant="outline" onClick={handleSignOut}>
-        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Sign
-        Out
-      </Button>
+      <Popover>
+        <PopoverTrigger asChild className="cursor-pointer">
+          <div className="flex flex-col items-center">
+            <Avatar>
+              <AvatarFallback className="text-white font-extrabold bg-gray-800">
+                {firstname[0].toUpperCase()}
+                {lastname[0].toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="mr-4 xs:w-52">
+          <div className="flex items-center uppercase space-x-1 text-sm font-extrabold text-gray-800 justify-center">
+            <p>{firstname}</p>
+            <p>{lastname}</p>
+          </div>
+
+          <Button
+            disabled={isLoading}
+            variant="outline"
+            onClick={handleSignOut}
+            className="w-full mt-2"
+          >
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{" "}
+            Sign Out
+          </Button>
+        </PopoverContent>
+      </Popover>
     </>
   );
 }

@@ -42,7 +42,7 @@ const PeopleCountInput: React.FC<PeopleCountInputProps> = ({
   return (
     <div className="flex items-center text-gray-700 justify-between">
       <Label htmlFor={inputName}>Party Size</Label>
-      <div className="space-x-5 flex items-center">
+      <div className="space-x-5 xs:space-x-2 flex items-center">
         <button type="button" onClick={handleDecrement} disabled={pending}>
           <MinusCircle size={24} />
         </button>
@@ -52,7 +52,7 @@ const PeopleCountInput: React.FC<PeopleCountInputProps> = ({
           type="number"
           value={value}
           onChange={handleChange}
-          className="w-24"
+          className="w-24 xs:w-16"
           disabled={pending}
         />
         <button type="button" onClick={handleIncrement} disabled={pending}>

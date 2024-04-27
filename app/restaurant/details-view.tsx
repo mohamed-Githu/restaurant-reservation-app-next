@@ -83,8 +83,8 @@ export default function DetailsView({
   };
 
   return (
-    <div className="col-span-5 rounded bg-white">
-      <h1 className="m-5 font-extrabold text-5xl">{name}</h1>
+    <div className="rounded bg-white">
+      <h1 className="m-5 font-extrabold text-5xl sm:text-3xl">{name}</h1>
       <div className="m-5 mb-7 mt-0 space-y-3">
         <RestaurantRating reviews={reviews} />
         <div className="flex items-center *:flex *:items-center text-gray-700 space-x-4">
@@ -99,7 +99,7 @@ export default function DetailsView({
       </div>
       <Separator />
       <p className="p-4 leading-5">{description}</p>
-      <h3 className="text-3xl font-extrabold mt-8 mb-2 mx-4">
+      <h3 className="text-3xl sm:text-2xl font-extrabold mt-8 mb-2 mx-4">
         {images.length} Photos
       </h3>
       <Separator />

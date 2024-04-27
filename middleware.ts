@@ -9,6 +9,20 @@ export async function middleware(req: NextRequest) {
       );
       return NextResponse.redirect(req.nextUrl);
     }
+
+    const dateQueryParam = req.nextUrl.searchParams.get("date");
+    const date: Date = new Date(dateQueryParam || new Date());
+    const now: Date = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    if (date < now) {
+      req.nextUrl.searchParams.set(
+        "date",
+        new Date().toISOString().split("T")[0]
+      );
+      return NextResponse.redirect(req.nextUrl);
+    }
+
     return NextResponse.next();
   }
 }

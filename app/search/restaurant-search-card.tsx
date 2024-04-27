@@ -22,15 +22,15 @@ export default function RestaurantSearchCard({
   reviews,
 }: RestaurantCardType) {
   return (
-    <Card className="flex h-52 shadow">
+    <Card className="flex h-52 lg:h-44 shadow sm:h-auto sm:flex-col sm:w-64 xs:w-full sm:mx-auto">
       <Image
         width={350}
         height={288}
         src={main_image}
         alt={name}
-        className="object-cover p-2 h-full rounded-2xl"
+        className="object-cover p-2 h-full rounded-2xl lg:w-64 sm:w-full sm:h-40"
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col lg:*:pl-2 sm:*:pl-6">
         <CardHeader>
           <CardTitle>{name}</CardTitle>
           <RestaurantRating reviews={reviews} />

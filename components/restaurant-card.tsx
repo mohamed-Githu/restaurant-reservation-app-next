@@ -16,7 +16,7 @@ export default function RestaurantCard({
   reviews,
 }: RestaurantCardType): React.ReactNode {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden sm:w-96 sm:mx-auto xs:mx-0 xs:max-w-full xs:w-auto">
       <Link href={`/restaurant/${slug}?date=${format(new Date(Date.now()), "yyyy-MM-dd")}`}>
         <div className="h-36">
           <Image
@@ -28,11 +28,11 @@ export default function RestaurantCard({
             priority={true}
           />
         </div>
-        <CardHeader>
+        <CardHeader className="p-5">
           <CardTitle>{name}</CardTitle>
           <RestaurantRating reviews={reviews} />
         </CardHeader>
-        <CardContent className="flex space-x-2 items-center capitalize">
+        <CardContent className="flex space-x-2 items-center capitalize p-5 pt-0">
           <p>{cuisine.name}</p>
           <PriceIcon price_category={price_category} />
           <p>{location.name}</p>

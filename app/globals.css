@@ -7,6 +7,10 @@
 }
 
 @layer base {
+  .container {
+    @apply max-w-[1280px] xl:max-w-[1024px] lg:max-w-[768px] md:max-w-[640px];
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;

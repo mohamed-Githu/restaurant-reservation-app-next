@@ -50,9 +50,9 @@ export default async function RestaurantDetailsPage({
 
   return (
     <Tabs defaultValue="overview">
-      <div className="grid grid-cols-7 gap-8 relative ">
-        <Card className="col-span-5 overflow-hidden">
-          <TabsList className="m-4 *:px-12">
+      <div className="grid grid-cols-7 xl:grid-cols-5 gap-8 relative xl:gap-5 lg:grid-cols-1">
+        <Card className="col-span-5 xl:col-span-3 lg:col-span-1 overflow-hidden">
+          <TabsList className="m-4 *:px-12 xs:*:px-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="menu">Menu</TabsTrigger>
           </TabsList>
@@ -69,7 +69,7 @@ export default async function RestaurantDetailsPage({
             >
               {reviews.length > 0 && (
                 <>
-                  <h3 className="text-3xl font-extrabold mt-8 mb-2 mx-4">
+                  <h3 className="text-3xl sm:text-2xl font-extrabold mt-8 mb-2 mx-4">
                     Reviews
                   </h3>
                   <Separator />
@@ -86,7 +86,7 @@ export default async function RestaurantDetailsPage({
           maxSeatsNumber={max_seat_number}
           minSeatsNumber={min_seat_number}
           restaurantId={id}
-          className="col-span-2 h-min sticky top-12"
+          className="col-span-2 lg:col-span-1 h-min sticky top-12 lg:mx-auto xs:max-w-96"
         />
       </div>
     </Tabs>

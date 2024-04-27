@@ -13,14 +13,14 @@ interface ItemsGridProps {
 
 export default function ItemsGrid({ items }: ItemsGridProps): JSX.Element {
   return (
-    <div className="grid grid-cols-2 p-4 gap-2">
+    <div className="grid grid-cols-2 p-4 gap-2 md:grid-cols-1">
       {items.length > 0 ? (
         items.map((item, i) => (
           <Card key={i} className="shadow-none">
             <CardHeader>
               <CardTitle className="flex justify-between">
                 {item.name}
-                <span className="font-normal">${item.price}</span>
+                <span className="font-normal ml-4">${item.price}</span>
               </CardTitle>
             </CardHeader>
             <CardContent>

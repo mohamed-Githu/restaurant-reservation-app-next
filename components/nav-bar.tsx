@@ -4,7 +4,7 @@ import NavbarActions from "./nav-bar-actions";
 export default async function Navbar() {
   return (
     <nav className="shadow py-6 z-50">
-      <div className="container flex justify-between items-center">
+      <div className="container flex justify-between items-center px-2">
         <Logo />
         <NavbarActions />
       </div>

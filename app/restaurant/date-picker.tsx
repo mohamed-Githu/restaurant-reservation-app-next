@@ -45,7 +45,7 @@ export function DatePicker({
 
   return (
     <div className="flex items-center text-gray-700 justify-between">
-      <Label htmlFor="date" className="text-nowrap mr-8">
+      <Label htmlFor="date" className="text-nowrap mr-8 xs:mr-2">
         Pick a date
       </Label>
       <input
@@ -61,7 +61,7 @@ export function DatePicker({
           <Button
             variant={"outline"}
             className={cn(
-              "w-56 justify-start text-left font-normal",
+              "w-56 xs:w-40 xs:px-2 justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
             ref={triggerButtonRef}

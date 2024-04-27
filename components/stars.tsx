@@ -12,7 +12,7 @@ export default function Stars({ rating }: StarsProps): React.ReactNode {
   const halfStarsCount = 5 - (fullStarsCount + emptyStarsCount);
 
   return (
-    <div className="flex text-yellow-500 text-xl">
+    <div className="flex text-yellow-500 text-xl gap-0">
       {Array.from(Array(fullStarsCount)).map((_, i) => (
         <MdStar key={`full-star-${i}`} />
       ))}

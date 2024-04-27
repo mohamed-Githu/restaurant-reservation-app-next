@@ -55,10 +55,10 @@ export default function ReservationViewForm({
   return (
     <>
       <input hidden name="restaurant_id" value={restaurantId} readOnly />
-      <CardHeader>
+      <CardHeader className="xs:px-4">
         <CardTitle>Make a reservation</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 xs:px-4">
         <PeopleCountInput
           inputName="peopleCount"
           maxValue={maxSeatsNumber}
@@ -75,13 +75,13 @@ export default function ReservationViewForm({
           options={options}
         />
       </CardContent>
-      <CardFooter>
+      <CardFooter className="xs:px-4">
         {!user ? (
-          <p className="text-sm text-center text-muted-foreground">
+          <p className="text-sm text-center text-muted-foreground mx-auto">
             You need to be logged in to make a reservation!
           </p>
         ) : options.length === 0 && !optionsLoading ? (
-          <p className="text-sm text-center text-muted-foreground">
+          <p className="text-sm text-center text-muted-foreground mx-auto">
             There are no available bookings for the selected day!
           </p>
         ) : !optionsLoading ? (
