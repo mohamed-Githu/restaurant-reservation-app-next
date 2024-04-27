@@ -8,6 +8,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { useRouter } from "next/navigation";
+import { RestaurantMenuBarProps } from "./types";
 
 export default function RestaurantMenuBar({
   slug,
