@@ -16,7 +16,7 @@ export default function RestaurantCard({
   reviews,
 }: RestaurantCardType): React.ReactNode {
   return (
-    <Card className="overflow-hidden sm:w-96 sm:mx-auto xs:mx-0 xs:max-w-full xs:w-auto">
+    <Card className="overflow-hidden sm:w-96 sm:mx-auto xs:mx-0 xs:max-w-full xs:w-auto hover:-translate-y-0.5 transition hover:shadow-lg">
       <Link href={`/restaurant/${slug}?date=${format(new Date(Date.now()), "yyyy-MM-dd")}`}>
         <div className="h-36">
           <Image

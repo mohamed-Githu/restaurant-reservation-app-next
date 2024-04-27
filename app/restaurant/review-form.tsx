@@ -1,17 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { Rating } from "@material-tailwind/react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import ReviewStars from "./review-stars";
 
 export default function ReviewForm(): JSX.Element {
   const params = useParams();
   const { pending } = useFormStatus();
-  const [rating, setRating] = useState(0);
 
   return (
     <div className="mt-8 mx-4">
@@ -25,11 +23,11 @@ export default function ReviewForm(): JSX.Element {
         disabled={pending}
       />
       <div className="mt-4 flex justify-between items-center text-amber-500">
-        <input type="number" name="rating" value={rating} readOnly hidden />
         <Button type="submit" disabled={pending}>
-          {pending && <Loader2 className="animate-spin size-4 mr-2" />} Submit Review
+          {pending && <Loader2 className="animate-spin size-4 mr-2" />} Submit
+          Review
         </Button>
-        <Rating value={rating} onChange={setRating} />
+        <ReviewStars inputName="rating" />
       </div>
     </div>
   );
