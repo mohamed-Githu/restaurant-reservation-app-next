@@ -8,6 +8,8 @@ import { AuthContext } from "@/app/context/auth-context";
 import { signOutAction } from "@/actions/user-actions";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Separator } from "../ui/separator";
+import Link from "next/link";
 
 interface NavbarActionsLoggedProps {
   firstname: string;
@@ -61,7 +63,14 @@ export default function NavbarActionsLogged({
             <p>{firstname}</p>
             <p>{lastname}</p>
           </div>
+          
+          <div className="my-4 flex flex-col items-center">
+          <Link href="/profile">
+            <Button variant="ghost">Bookings</Button>
+          </Link>
 
+          </div>
+          <Separator />
           <Button
             disabled={isLoading}
             variant="outline"

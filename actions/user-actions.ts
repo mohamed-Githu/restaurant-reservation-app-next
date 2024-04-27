@@ -181,6 +181,32 @@ export const verifyTokenAction = async () => {
         last_name: true,
         email: true,
         id: true,
+        reviews: {
+          select: {
+            id: true,
+            rating: true,
+            text: true,
+            restaurant: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        bookings: {
+          select: {
+            id: true,
+            booking_date: true,
+            booking_time: true,
+            restaurant: {
+              select: {
+                name: true,
+                slug: true,
+              },
+            },
+          },
+        },
+        phone: true,
       },
     });
 
@@ -191,6 +217,8 @@ export const verifyTokenAction = async () => {
         email: user?.email,
         firstname: user?.first_name,
         lastname: user?.last_name,
+        phone: user?.phone,
+        bookings: user?.bookings,
       },
     };
   } catch (error) {
