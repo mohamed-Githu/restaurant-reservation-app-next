@@ -8,18 +8,6 @@ for (let hour = 0; hour <= 23; hour++) {
   }
 }
 
-export function formatTime(time: string | Date): string {
-  if (typeof time === "string") {
-    return time.substring(0, time.lastIndexOf(":"));
-  } else {
-    return time.toLocaleTimeString("en-US", {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  }
-}
-
 export function getTimeOptions(
   openTime: string,
   closeTime: string

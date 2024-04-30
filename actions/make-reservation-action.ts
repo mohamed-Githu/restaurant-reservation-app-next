@@ -3,7 +3,6 @@
 import { makeReservationSchema } from "@/components/auth/zod-schemas";
 import { verifyTokenAction } from "./user-actions";
 import prisma from "@/app/db";
-import { redirect } from "next/navigation";
 
 export async function makeReservationAction(
   restaurant_id: number,
